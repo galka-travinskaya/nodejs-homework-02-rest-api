@@ -6,10 +6,17 @@ const {
   validationCreateUser,
   validationLoginUser,
 } = require("./validate-user-router.js");
+const uploadAvatar = require("../../helpers/upload-avatar");
 
-router.get('/current', guard, ctrl.current)
+router.get("/current", guard, ctrl.current);
 router.post("/signup", validationCreateUser, ctrl.signup);
 router.post("/login", validationLoginUser, ctrl.login);
 router.post("/logout", guard, ctrl.logout);
+router.patch(
+  "/avatars",
+  guard,
+  uploadAvatar.single("avatar"),
+  ctrl.updateAvatar,
+);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const guard = require("../../helpers/guard");
 const {
   validationCreateUser,
   validationLoginUser,
+  validationVerifyUser
 } = require("./validate-user-router.js");
 const uploadAvatar = require("../../helpers/upload-avatar");
 
@@ -18,5 +19,7 @@ router.patch(
   uploadAvatar.single("avatar"),
   ctrl.updateAvatar,
 );
+router.get("/verify/:verificationToken", ctrl.verify);
+router.post("/verify", validationVerifyUser, ctrl.repeatEmailVerify)
 
 module.exports = router;
